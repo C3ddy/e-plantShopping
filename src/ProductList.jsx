@@ -3,6 +3,7 @@ import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "./CartItem";
 import { addItem } from "./CartSlice";
+import Button from "./Button";
 function ProductList({ onHomeClick }) {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
@@ -16,6 +17,15 @@ function ProductList({ onHomeClick }) {
     }
     return total;
   };
+
+  const toggleButton = (res) => {
+    const findItem = cart.filter((item) => item.name === res.name);
+    if (findItem) {
+      return true;
+    }
+    return false;
+  };
+
   const plantsArray = [
     {
       category: "Air Purifying Plants",
@@ -368,12 +378,7 @@ function ProductList({ onHomeClick }) {
                     <img className="product-image" src={item.image} />
                     <div className="product-price">{item.cost}</div>
                     <p>{item.description}</p>
-                    <button
-                      onClick={() => dispatch(addItem(item))}
-                      className="product-button"
-                    >
-                      Add to cart
-                    </button>
+                    <Button Ob={item}></Button>
                   </div>
                 ))}
               </div>
